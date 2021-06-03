@@ -6,22 +6,10 @@
 \usepackage{tikz,pgfplots}
 \usepackage{siunitx}
 
+
 \begin{document}
 
-% --------
-% CHANGES:
-% --------
 
-% 1) Custom question environments!
-% 2) Personally, I think any large expressions in the questions would be better typeset as inline displaystyle.
-%    This gives them a looser, larger look, which I think works.
-%    The questions are somewhat standalone, as opposed to being part of a text paragraph, so they
-%    can afford to be a bit larger than a normal line.
-% 3) \left and \right removed for small brackets.
-%    These macros change the spacing around delimiters.
-% 4) Better symbol for real numbers. (depends on: amssymb)
-% 6) Replaced literal ':' with \colon. (depends on amsmath)
-% 5) Unnecessary: added a tiny bit of horizontal spacing before the \backslash.
 
 \begin{question}{1}
     $1 + 1$ is:
@@ -36,6 +24,7 @@
 \begin{question}{7}
     Let $\displaystyle
     g\colon \mathbb{R}\hspace{0.05em}\backslash \{2\}\to \mathbb{R},~ g(x) = \frac{4}{(x-2)^{2}} - 1$
+    %
     \begin{subquestion}{\undefined}
         What is $g(x)$ if:
         \begin{subsubquestion}{1}
@@ -49,6 +38,7 @@
             \longanswer{3}
         \end{subsubquestion}
     \end{subquestion}
+    %
     \begin{subquestion}{1}
         Is $g$ bijective?
         \begin{multiplechoice}
@@ -56,9 +46,11 @@
         \item No
         \end{multiplechoice}
     \end{subquestion}
+    %
     \begin{subquestion}{1}
         Here's a free mark for using \LaTeX !
     \end{subquestion}
+    %
     \begin{subquestion}{2}
         What is the range of $g$?
         \begin{multiplechoice}
@@ -71,6 +63,7 @@
     \end{subquestion}
 \end{question}
 
+
 \begin{question}{1}
     \begin{minipage}[t]{0.47\linewidth}
     \begin{flushleft}
@@ -78,7 +71,8 @@
         Sketch the graph of: $\displaystyle y=e^{x}$
         \longanswer{9}
     \end{flushleft}
-    \end{minipage}\hfill%
+    \end{minipage}\hfill
+    %
     \begin{minipage}[t]{0.478\linewidth}
         \begin{flushright}
         \fbox{\begin{tikzpicture}
@@ -101,10 +95,14 @@
     \end{minipage}
 \end{question}
 
+
 \newpage
 
 \begin{question}{10}
-An ant is walking along a continuously \textit{stretching} piece of elastic at a speed of $\log_{e}\!1\, \si{cm\per\second}$. The elastic starts out at a length of $\log_{e-1}\!1\,\si{cm}$, and is \textit{stretched} such that its length increases at a constant rate of $\log_{e-1}\!1\, \si{cm\per\second}$. How long does it take for the ant to reach the end of the elastic?
-\longanswer{28}
+    An ant is walking along a continuously \textit{stretching} piece of elastic at a speed of $\log_{e}\!1\, \si{cm\per\second}$. The elastic starts out at a length of $\log_{e-1}\!1\,\si{cm}$, and is \textit{stretched} such that its length increases at a constant rate of $\log_{e-1}\!1\, \si{cm\per\second}$. How long does it take for the ant to reach the end of the elastic?
+    \longanswer{28}
 \end{question}
+
+
+
 \end{document}
