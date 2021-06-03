@@ -1,0 +1,167 @@
+\RequirePackage[
+    top=3cm,
+    bottom=3cm,
+    left=3cm,
+    right=4.3cm,
+    marginparwidth=1.0cm,
+    marginparsep=0.3cm
+    ]{geometry}
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+
+\RequirePackage{marginnote}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+% Environment for questions
+% Automatically counts question number; counter resets with each new *numbered* section
+% Option 1 [optional]: Override question number
+% Option 2: Number of marks
+\newcounter{question}[section]
+\newcounter{subquestion}[question]\renewcommand{\thesubquestion}{\alph{subquestion})}
+\newcounter{subsubquestion}[subquestion]\renewcommand{\thesubsubquestion}{\roman{subsubquestion})}
+
+%   ___              _   _          
+%  / _ \ _  _ ___ __| |_(_)___ _ _  
+% | (_) | || / -_|_-<  _| / _ \ ' \ 
+%  \__\_\\_,_\___/__/\__|_\___/_||_|
+%
+\newenvironment{question}[1]%
+{%
+    \stepcounter{question}  % Counter starts at zero
+    \def\questiontitle{Question \thequestion}  % Set \questionnumber to the question number
+    \normalsize
+    \textbf{\questiontitle}\hspace{0.4em}
+    (#1 mark% Note: some random comments (including this one) are necessary for proper function.
+        \ifnum#1=1% Such is the way of LaTeX.
+        \else%
+            s% Pluralise
+            \fi)%
+    \ifx#1\undefined  % If we didn't specify a subquestion number
+    \else  % If we did specify a subquestion number
+        \hspace{\the\marginparsep}
+        \leavevmode\cleaders\hb@xt@1mm{\hss .\hss}\hfill\kern\z@
+        \marginnote{%
+            \bf\small%
+            \raggedleft\fbox{\rule[-0.5pt]{0.3cm}{0.5pt}\hspace*{1mm}/\hspace*{0.5mm}#1}
+        }[-0.55cm]%
+    \fi%
+    \\[0.5em]
+}{
+    \vspace{0.4cm}
+}
+
+%  ___      _     ___              _   _          
+% / __|_  _| |__ / _ \ _  _ ___ __| |_(_)___ _ _  
+% \__ \ || | '_ \ (_) | || / -_|_-<  _| / _ \ ' \ 
+% |___/\_,_|_.__/\__\_\\_,_\___/__/\__|_\___/_||_|
+%
+\newenvironment{subquestion}[1]{%
+    \stepcounter{subquestion}% Counter starts at zero
+    \def\subquestionnumber{\thesubquestion}% Set \subquestionnumber to the subquestion number
+    \list{}{%
+        \settowidth{\labelwidth}{M)}%
+        \setlength{\topsep}{0pt}%
+        \setlength{\labelsep}{0.2cm}%
+        \setlength{\leftmargin}{\the\dimexpr\labelsep+\labelwidth-\itemindent\relax}%
+    }\item[%
+        \textbf{\subquestionnumber}%
+        \hfill%
+    ]%
+    \marginnote{%
+        \ifx#1\undefined\else%
+            \small\raggedleft%
+            \rule[-0.5pt]{0.3cm}{0.5pt}\hspace*{1mm}/\hspace*{0.5mm}#1%
+        \fi%
+    }%
+    \hspace*{-\the\fontdimen2\font\space\relax}%
+}{
+    \endlist
+}
+
+%  ___      _    ___      _     ___              _   _          
+% / __|_  _| |__/ __|_  _| |__ / _ \ _  _ ___ __| |_(_)___ _ _  
+% \__ \ || | '_ \__ \ || | '_ \ (_) | || / -_|_-<  _| / _ \ ' \ 
+% |___/\_,_|_.__/___/\_,_|_.__/\__\_\\_,_\___/__/\__|_\___/_||_|
+%
+\newenvironment{subsubquestion}[1]{%
+    \stepcounter{subsubquestion}  % Counter starts at zero, increment by one before starting
+    \def\subsubquestionnumber{\thesubsubquestion}  % Set \subsubquestionnumber to the subsubquestion number
+    \list{}{
+        \settowidth{\labelwidth}{(M)}
+        \setlength{\labelsep}{0pt}
+        \setlength{\topsep}{0pt}
+        \setlength{\leftmargin}{\the\dimexpr\labelsep+\labelwidth-\itemindent\relax}
+    }\item[%
+        \normalsize%
+        \textbf{\subsubquestionnumber}%
+        \hfill%
+    ]
+    \ifx#1\undefined  % If we didn't specify a subquestion number
+    \else  % If we did specify a subquestion number
+        \marginnote{%
+            \small%
+            % \begin{tabular}
+            %
+            % \end{tabular}
+            \raggedleft\rule[-0.5pt]{0.3cm}{0.5pt}\hspace*{1mm}/\hspace*{0.5mm}#1%
+        }%
+    \fi%
+    \hspace*{-\the\fontdimen2\font\space\relax}%
+}{
+    \endlist
+}
+
+%  _                      _                          
+% | |   ___ _ _  __ _    /_\  _ _  ____ __ _____ _ _ 
+% | |__/ _ \ ' \/ _` |  / _ \| ' \(_-< V  V / -_) '_|
+% |____\___/_||_\__, | /_/ \_\_||_/__/\_/\_/\___|_|  
+%               |___/
+%
+\newcommand{\longanswer}[1]{
+    \vspace{0.25cm}%
+    \newcount\responselines
+    \responselines=#1
+    \loop
+        \advance \responselines -1%
+        \newline%
+        \vspace{0.3cm}%
+        \rule[-0.4pt]{\linewidth}{0.4pt}%
+    \ifnum\responselines>0
+    \repeat
+    \newline
+    \vspace{-0.65cm}
+}
+
+%  ___ _            _       _                          
+% / __| |_  ___ _ _| |_    /_\  _ _  ____ __ _____ _ _ 
+% \__ \ ' \/ _ \ '_|  _|  / _ \| ' \(_-< V  V / -_) '_|
+% |___/_||_\___/_|  \__| /_/ \_\_||_/__/\_/\_/\___|_|  
+%
+\newcommand{\shortanswer}{
+    % \hspace*{0.13cm}\leavevmode\leaders\hrule\hfill\kern\z@\par
+    % \vspace{0.25cm}\newline\rule[-0.4pt]{\linewidth}{0.4pt}%
+    \longanswer{1}
+}
+
+%  __  __      _ _   _      _        ___ _        _        
+% |  \/  |_  _| | |_(_)_ __| |___   / __| |_  ___(_)__ ___ 
+% | |\/| | || | |  _| | '_ \ / -_) | (__| ' \/ _ \ / _/ -_)
+% |_|  |_|\_,_|_|\__|_| .__/_\___|  \___|_||_\___/_\__\___|
+%
+\newcounter{multiplechoicecounter}
+\newenvironment{multiplechoice}{
+    \list{\Alph{multiplechoicecounter}.\hfill}{
+        \usecounter{multiplechoicecounter}
+        \settowidth{\labelwidth}{M.}%
+        \setlength{\topsep}{0pt}%
+        \setlength{\parsep}{0pt}%
+        \setlength{\parskip}{0.08cm}%
+        \setlength{\itemindent}{-\labelsep}%
+        \setlength{\leftmargin}{\the\dimexpr\labelsep+\labelwidth-\itemindent+0.4cm\relax}%
+    }
+}{
+    \endlist
+}
